@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+
 #define NULL_VALUE -99999
 #define SUCCESS_VALUE 99999
 
@@ -92,6 +93,50 @@ int NumOfItems(int item){
         temp = temp->next ;
     }
     return count;
+}
+
+int deleteALLOccurrence(int item){
+    struct listNode *temp = list, *prev;
+    if(temp == NULL) return NULL_VALUE;
+
+    while (temp != NULL && temp->item == item){
+        list = temp->next; // Changed head
+        free(temp); // free old head
+        temp = list; // Change Temp
+    }
+
+    while (temp != NULL){
+        while (temp != NULL && temp->item != item){
+            prev = temp;
+            temp = temp->next;
+        }
+
+        if (temp == NULL) return;
+        prev->next = temp->next;
+        free(temp); // Free memory
+        temp = prev->next;
+    }
+    return SUCCESS_VALUE ;
+}
+
+int deleteLastOccurrence(int item){
+    struct listNode * temp = list;
+    if(temp == NULL) return NULL_VALUE;
+    struct listNode * prev = NULL,* curr = NULL;
+
+      while(temp){
+        if(temp->next && temp->next->item == item){
+          prev = temp;
+          curr = temp->next;
+        }
+        temp = temp->next;
+      }
+      if(prev){
+        prev->next = curr->next;
+      }else if(temp->item == item){
+        temp = temp->next;
+      }
+      return SUCCESS_VALUE ;
 }
 
 int searchItem(int item)
@@ -192,8 +237,17 @@ int main()
             break;
 
         case 'N':
-            scanf("%d", &pinp2os);
+            scanf("%d", &inp2);
             s=NumOfItems(inp2);
+            break;
+
+        case 'D':
+            scanf("%d", &inp2);
+            s=deleteALLOccurrence(inp2);
+            break;
+        case 'O':
+            scanf("%d", &inp2);
+            s=deleteLastOccurrence(inp2);
             break;
 
         case 'G':
