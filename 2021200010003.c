@@ -49,6 +49,36 @@ int insertItemLast(int item)
     return SUCCESS_VALUE;
 }
 
+int insertItemAT(int position, int item)
+{
+    if(position < 0 || position > length){
+        return NULL_VALUE;
+    }else if(position == 0){
+        insertItemBegin(item);
+        length++;
+        return SUCCESS_VALUE;
+    }else if(position == length){
+        insertItemLast(item);
+        length++;
+        return SUCCESS_VALUE;
+    }else{
+        struct listNode * newNode, *temp, *prev, *next;
+        newNode = (struct listNode*) malloc (sizeof(struct listNode)) ;
+        temp = list;
+        newNode->item = item;
+        newNode->next = NULL;
+         for (int i = 1; i != position; i++){
+            temp = temp -> next;
+         }
+		newNode -> next = temp -> next;
+		temp -> next = newNode;
+
+        length++;
+        return SUCCESS_VALUE;
+    }
+
+}
+
 int searchItem(int item)
 {
     struct listNode *temp ;
@@ -121,7 +151,7 @@ int deleteFirstOccurrence(int item)
 int main()
 {
     char inp1, chk;
-    int inp2;
+    int inp2, pos;
     int s;
     initializeList();
     while(1){
@@ -131,14 +161,19 @@ int main()
 
         switch(inp1)
         {
-        case 'I':
+        case 'U':
             scanf("%d",&inp2);
             s=insertItemBegin(inp2);
             break;
 
-        case 'A':
+        case 'P':
             scanf("%d",&inp2);
             s=insertItemLast(inp2);
+            break;
+
+        case 'I':
+            scanf("%d %d",&inp2, &pos);
+            s=insertItemAT(pos, inp2);
             break;
 
         case 'G':
@@ -157,7 +192,7 @@ int main()
             s=deleteFirstOccurrence(inp2);
             break;
 
-        case 'P':
+        case 'E':
             PrintALL();
             break;
 
