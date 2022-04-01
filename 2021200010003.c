@@ -32,13 +32,14 @@ int insertItemBegin(int item)
 
 int insertItemLast(int item)
 {
-    struct listNode * newNode, *temp;
+    struct listNode * newNode, *temp = list;
     newNode = (struct listNode*) malloc (sizeof(struct listNode)) ;
-    temp = list;
+
     newNode->item = item;
     newNode->next = NULL;
+
 	if (temp == NULL) {
-		temp = newNode;
+		list = newNode;
 	} else {
 		while (temp->next != NULL){
             temp = temp->next;
@@ -56,11 +57,11 @@ int insertItemAT(int position, int item)
     }else if(position == 0){
         insertItemBegin(item);
         length++;
-        return SUCCESS_VALUE;
+//        return SUCCESS_VALUE;
     }else if(position == length){
         insertItemLast(item);
         length++;
-        return SUCCESS_VALUE;
+//        return SUCCESS_VALUE;
     }else{
         struct listNode * newNode, *temp, *prev, *next;
         newNode = (struct listNode*) malloc (sizeof(struct listNode)) ;
@@ -77,6 +78,20 @@ int insertItemAT(int position, int item)
         return SUCCESS_VALUE;
     }
 
+}
+
+int NumOfItems(int item){
+    struct listNode *temp;
+    int count = 0;
+    temp = list ;
+    while (temp != 0)
+    {
+        if (temp->item == item){
+            count++;
+        }
+        temp = temp->next ;
+    }
+    return count;
 }
 
 int searchItem(int item)
@@ -174,6 +189,11 @@ int main()
         case 'I':
             scanf("%d %d",&inp2, &pos);
             s=insertItemAT(pos, inp2);
+            break;
+
+        case 'N':
+            scanf("%d", &pinp2os);
+            s=NumOfItems(inp2);
             break;
 
         case 'G':
