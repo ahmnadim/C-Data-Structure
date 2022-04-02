@@ -111,7 +111,7 @@ int deleteALLOccurrence(int item){
             temp = temp->next;
         }
 
-        if (temp == NULL) return;
+        if (temp == NULL) return NULL_VALUE;
         prev->next = temp->next;
         free(temp); // Free memory
         temp = prev->next;
@@ -137,6 +137,33 @@ int deleteLastOccurrence(int item){
         temp = temp->next;
       }
       return SUCCESS_VALUE ;
+}
+
+int deleteFirstItem(){
+    struct listNode *temp = list;
+    if(temp = NULL){
+        return NULL_VALUE;
+    }
+    list = list->next;
+    free(temp);
+    return SUCCESS_VALUE;
+}
+
+int deletelastItem(){
+    struct listNode *temp = list, *lastNode;
+    if(temp == NULL){
+        return NULL_VALUE;
+    }
+    if(temp->next == NULL){
+        deleteFirstItem();
+    }
+    while(temp-> next->next != NULL){
+        temp = temp->next;
+    }
+    lastNode = temp->next;
+    temp->next = NULL;
+    free(lastNode);
+    return SUCCESS_VALUE;
 }
 
 int searchItem(int item)
@@ -245,9 +272,18 @@ int main()
             scanf("%d", &inp2);
             s=deleteALLOccurrence(inp2);
             break;
+
         case 'O':
             scanf("%d", &inp2);
             s=deleteLastOccurrence(inp2);
+            break;
+
+        case 'F':
+            s=deleteFirstItem();
+            break;
+
+        case 'X':
+            s=deletelastItem();
             break;
 
         case 'G':
