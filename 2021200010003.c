@@ -57,12 +57,8 @@ int insertItemAT(int position, int item)
         return NULL_VALUE;
     }else if(position == 0){
         insertItemBegin(item);
-        length++;
-//        return SUCCESS_VALUE;
     }else if(position == length){
         insertItemLast(item);
-        length++;
-//        return SUCCESS_VALUE;
     }else{
         struct listNode * newNode, *temp, *prev, *next;
         newNode = (struct listNode*) malloc (sizeof(struct listNode)) ;
@@ -136,6 +132,7 @@ int deleteLastOccurrence(int item){
       }else if(temp->item == item){
         temp = temp->next;
       }
+      length--;
       return SUCCESS_VALUE ;
 }
 
@@ -146,6 +143,7 @@ int deleteFirstItem(){
     }
     list = list->next;
     free(temp);
+    length--;
     return SUCCESS_VALUE;
 }
 
@@ -163,6 +161,7 @@ int deletelastItem(){
     lastNode = temp->next;
     temp->next = NULL;
     free(lastNode);
+    length--;
     return SUCCESS_VALUE;
 }
 
