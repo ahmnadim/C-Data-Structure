@@ -85,7 +85,7 @@ int NumOfItems(int item){
     struct listNode *temp;
     int count = 0;
     temp = list ;
-    while (temp != 0)
+    while (temp != NULL)
     {
         if (temp->item == item){
             count++;
@@ -266,6 +266,7 @@ int main()
         case 'N':
             scanf("%d", &inp2);
             s=NumOfItems(inp2);
+            printf("%d\n", s);
             break;
 
         case 'D':
