@@ -28,10 +28,11 @@ int insertItemBegin(int item)
     newNode->next = list ;
     list = newNode ;
     newNode->prev = 0 ; //no previous node as this is the first item
-    if ( newNode->next != 0 )
+    if ( newNode->next != 0 ){
         newNode->next->prev = newNode ;
-    else
+    } else{
         tail = newNode ; //this is the first node in the list
+    }
     length++;
     return SUCCESS_VALUE ;
 }
@@ -44,10 +45,13 @@ int insertItemLast(int item)
     newNode->prev = tail ;
     tail = newNode ;
     newNode->next = 0 ; //no next node as this is the last node
-    if ( newNode->prev != 0 )
+    if ( newNode->prev != 0 ){
         newNode->prev->next = newNode ;
+    }
     else
-        list = newNode ; //this is the first node in the list
+        {
+            list = newNode ; //this is the first node in the list
+        }
     length++;
     return SUCCESS_VALUE ;
 }
@@ -65,17 +69,31 @@ void PrintALL()
 }
 
 
-//Assignment
+//ASSIGNMENTS STARTS HERE...
 // Delete the last occurrence of the item in the list
 int deleteLastOccurrence(int item){
 
-     if(list == NULL || length == 0){
+    if(list == NULL || length == 0){
         return NULL_VALUE;
     }
 
-//    struct list * temp = list;
+    struct listNode * temp = list, * prev = NULL,*curr = NULL;;
 
-    printf(tail);
+    while(temp){
+        if(temp->next && temp->next->item == item){
+          prev = temp;
+          curr = temp->next;
+        }
+        temp = temp->next;
+    }
+
+    if(prev){
+        prev->next = curr->next;
+    }else if(list->item == item){
+        list = list->next;
+    }
+
+    length--;
 	return SUCCESS_VALUE;
 
 }
@@ -109,6 +127,8 @@ int deletelastItem(){
 	}
 	return SUCCESS_VALUE;
 };
+
+//ASSIGNMENTS ENDS HERE...
 
 
 
